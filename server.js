@@ -1,10 +1,11 @@
 let express = require("express");
 let mongoose = require("mongoose")
+const cors = require("cors")
 const userRoutes = require("./src/routes/usersRoutes")
 const categoryRoutes = require("./src/routes/categoryRoutes")
 const expenseRoutes = require("./src/routes/expenseRoutes")
 
-let app = express();
+let app = express() 
 
 mongoose.connect("mongodb://localhost:27017/expenseRecorder")
 .then(()=>{
@@ -13,6 +14,8 @@ mongoose.connect("mongodb://localhost:27017/expenseRecorder")
 .catch((err)=>{
     console.log(err)
 })
+app.use(cors())
+
 app.use(express.json());
 app.use("/users", userRoutes )
 app.use("/category", categoryRoutes)
